@@ -1,19 +1,31 @@
-import com.spriithy.serialization.SerialField;
-import com.spriithy.serialization.fields.SerialIntField;
-import com.spriithy.utils.ArrayUtils;
+import java.util.Random;
 
-import static com.spriithy.utils.BinaryUtils.*;
+import com.spriithy.serialization.data.SerialArray;
+import com.spriithy.serialization.data.SerialField;
+import com.spriithy.serialization.data.SerialObject;
+import com.spriithy.utils.FileUtils;
 
 /**
  * @author Theophile Dano, Spriithy 2015
  */
 public class Main {
 
+	static Random random = new Random();
+
 	public static void main(String[] args) {
+		int[] data = new int[10];
+		for (int i = 0; i < data.length; i++)
+			data[i] = random.nextInt();
+		SerialArray array = SerialArray.Integer("RandomNumbers", data);
+		SerialField field = SerialField.String("str", "FooBarBaz");
 
-		int[] data = {9,9,2,3,4,4,1,3,2,9};
-		ArrayUtils.print(ArrayUtils.join(data, new int[] { 1 }, new int[] {10, 27} ));
-
+		SerialObject object = new SerialObject("Entity");
+		object.addArray(array);
+		object.addField(field);
+		
+		byte[] stream = new byte[object.getSize()];
+		object.getBytes(stream, 0);
+		FileUtils.saveToFile("test.sdb", stream);
 	}
 
 }
