@@ -1,6 +1,6 @@
 /**
  * The MIT License (MIT)
- * Copyright (c) 2015 | Théophile Dano, Spriithy
+ * Copyright (c) 2015 | Theophile Dano, Spriithy
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -25,15 +25,14 @@ import com.spriithy.serialization.SerialField;
 import com.spriithy.serialization.SerialType;
 
 /**
- * @author Théophile Dano, Spriithy 2015
+ * @author Theophile Dano, Spriithy 2015
  */
 public class SerialIntField extends SerialField {
-
+	
 	public SerialIntField(String name, int value) {
 		data = new byte[SerialType.getSize(SerialType.INT)];
-		writeBytes(data, 0, value);
 		type = SerialType.INT;
-		setName(name);
+		writeBytes(data, 0, value);
 	}
 
 }
