@@ -1,6 +1,6 @@
 /**
  * The MIT License (MIT)
- * Copyright (c) 2015 | Théophile Dano, Spriithy
+ * Copyright (c) 2015 | Theophile Dano, Spriithy
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -20,10 +20,10 @@
 package com.spriithy.serialization.data;
 
 /**
- * @author Théophile Dano, Spriithy 2015
+ * @author Theophile Dano, Spriithy 2015
  */
 public class SerialType {
-
+	
 	public static final byte	UNKNOWN	= 0;
 	public static final byte	BYTE	= 1;
 	public static final byte	SHORT	= 2;
@@ -35,20 +35,37 @@ public class SerialType {
 	public static final byte	BOOLEAN	= 8;
 	public static final byte	STRING	= 9;
 	
-	public static int getSize(byte type) {
+	public static final int getSize(byte type) {
 		switch (type) {
-			case BYTE:		return 1;
-			case SHORT:		return 2;
-			case CHAR:		return 2;
-			case INTEGER:	return 4;
-			case LONG:		return 8;
-			case FLOAT:		return 4;
-			case DOUBLE:	return 8;
-			case BOOLEAN:	return 1;
-			case STRING:	return 1;
+		case BYTE:		return 1;
+		case SHORT:		return 2;
+		case CHAR:		return 2;
+		case INTEGER:	return 4;
+		case LONG:		return 8;
+		case FLOAT:		return 4;
+		case DOUBLE:	return 8;
+		case BOOLEAN:	return 1;
+		case STRING:	return 1;
 		}
 		assert false;
 		return 0;
+	}
+	
+	public static final String getName(byte type) {
+		switch (type) {
+		case UNKNOWN:	return "unknown";
+		case BYTE:		return "byte";
+		case SHORT:		return "short";
+		case CHAR:		return "char";
+		case INTEGER:	return "int";
+		case LONG:		return "long";
+		case FLOAT:		return "float";
+		case DOUBLE:	return "double";
+		case BOOLEAN:	return "boolean";
+		case STRING:	return "String";
+		}
+		assert false;
+		return "Unknown";
 	}
 	
 }
