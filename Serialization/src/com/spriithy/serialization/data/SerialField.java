@@ -1,30 +1,15 @@
-/**
- * The MIT License (MIT)
- * Copyright (c) 2015 | Theophile Dano, Spriithy
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
 package com.spriithy.serialization.data;
 
+import static com.spriithy.serialization.SerialReader.*;
 import static com.spriithy.serialization.SerialWriter.*;
+
+import com.spriithy.serialization.Serializable;
+import com.spriithy.utils.ArrayUtils;
 
 /**
  * @author Theophile Dano, Spriithy 2015
  */
-public class SerialField {
+public class SerialField implements Serializable {
 
 	public static final byte	CONTAINER_TYPE	= SerialContainerType.FIELD;
 
@@ -32,6 +17,8 @@ public class SerialField {
 	public byte[]				name;
 	public byte					type;
 	public byte[]				data;
+
+	private Object				generic;
 
 	private SerialField() {}
 
@@ -116,6 +103,18 @@ public class SerialField {
 		return field;
 	}
 
+	public static <T> SerialField Generic(String name, T obj) {
+		if (obj instanceof Serializable) {
+			SerialField field = new SerialField();
+			field.generic = obj;
+			field.setName(name);
+			field.data = new byte[((Serializable) obj).getSize()];
+			field.type = SerialType.GENERIC;
+			((Serializable) obj).getBytes(field.data, 0);
+			return field;
+		} else throw new IllegalArgumentException("The generic object passed must implement com.spriithy.serialization.Serializable");
+	}
+
 	public void setName(String name) {
 		assert name.length() < Short.MAX_VALUE : "Field name is too long";
 		nameLength = (short) name.length();
@@ -135,6 +134,54 @@ public class SerialField {
 	public int getSize() {
 		assert SerialType.getSize(type) == data.length : "Corrupted data !";
 		return 1 + 2 + name.length + 1 + data.length;
+	}
+
+	public String getName() {
+		return ArrayUtils.stringOf(name);
+	}
+
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("SerialField [name=\"");
+		sb.append(getName() + "\", ");
+		sb.append("type=");
+		sb.append(SerialType.getName(type) + ", ");
+		sb.append("value=");
+		switch (type) {
+			case SerialType.BYTE:
+				sb.append(readByte(data, 0));
+				break;
+			case SerialType.SHORT:
+				sb.append(readShort(data, 0));
+				break;
+			case SerialType.CHAR:
+				sb.append(readChar(data, 0));
+				break;
+			case SerialType.INTEGER:
+				sb.append(readInt(data, 0));
+				break;
+			case SerialType.LONG:
+				sb.append(readLong(data, 0));
+				break;
+			case SerialType.FLOAT:
+				sb.append(readFloat(data, 0));
+				break;
+			case SerialType.DOUBLE:
+				sb.append(readDouble(data, 0));
+				break;
+			case SerialType.BOOLEAN:
+				sb.append(readDouble(data, 0));
+				break;
+			case SerialType.STRING:
+				sb.append("\"");
+				sb.append(readString(data, 0));
+				sb.append("\"");
+				break;
+			case SerialType.GENERIC:
+				sb.append(generic.toString());
+		}
+		sb.append("]");
+		return sb.toString();
 	}
 
 }

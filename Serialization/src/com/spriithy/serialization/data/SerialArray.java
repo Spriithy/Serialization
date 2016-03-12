@@ -1,6 +1,11 @@
 package com.spriithy.serialization.data;
 
-import static com.spriithy.serialization.SerialWriter.writeBytes;
+import static com.spriithy.serialization.SerialWriter.*;
+
+import java.util.Arrays;
+
+import com.spriithy.serialization.Serializable;
+import com.spriithy.utils.ArrayUtils;
 
 /**
  * 
@@ -10,7 +15,7 @@ import static com.spriithy.serialization.SerialWriter.writeBytes;
  * @author Theophile Dano, Spriithy 2016
  * 
  */
-public class SerialArray {
+public class SerialArray implements Serializable {
 
 	/**
 	 * Represents the container type
@@ -386,39 +391,42 @@ public class SerialArray {
 	 */
 	public int getBytes(byte[] dst, int ptr) {
 		assert dst.length > ptr + getSize() : "Array Overflow when writing array's data";
+
 		ptr = writeBytes(dst, ptr, CONTAINER_TYPE);
 		ptr = writeBytes(dst, ptr, nameLength);
 		ptr = writeBytes(dst, ptr, name);
 		ptr = writeBytes(dst, ptr, type);
 		ptr = writeBytes(dst, ptr, count);
+
+		// Each type has its own array to store it since we can't template Java primitive types
 		switch (type) {
-		case SerialType.BYTE:
-			ptr = writeBytes(dst, ptr, byteData);
-			break;
-		case SerialType.SHORT:
-			ptr = writeBytes(dst, ptr, shortData);
-			break;
-		case SerialType.CHAR:
-			ptr = writeBytes(dst, ptr, charData);
-			break;
-		case SerialType.INTEGER:
-			ptr = writeBytes(dst, ptr, intData);
-			break;
-		case SerialType.LONG:
-			ptr = writeBytes(dst, ptr, longData);
-			break;
-		case SerialType.FLOAT:
-			ptr = writeBytes(dst, ptr, floatData);
-			break;
-		case SerialType.DOUBLE:
-			ptr = writeBytes(dst, ptr, doubleData);
-			break;
-		case SerialType.BOOLEAN:
-			ptr = writeBytes(dst, ptr, booleanData);
-			break;
-		case SerialType.STRING:
-			ptr = writeBytes(dst, ptr, stringData);
-			break;
+			case SerialType.BYTE:
+				ptr = writeBytes(dst, ptr, byteData);
+				break;
+			case SerialType.SHORT:
+				ptr = writeBytes(dst, ptr, shortData);
+				break;
+			case SerialType.CHAR:
+				ptr = writeBytes(dst, ptr, charData);
+				break;
+			case SerialType.INTEGER:
+				ptr = writeBytes(dst, ptr, intData);
+				break;
+			case SerialType.LONG:
+				ptr = writeBytes(dst, ptr, longData);
+				break;
+			case SerialType.FLOAT:
+				ptr = writeBytes(dst, ptr, floatData);
+				break;
+			case SerialType.DOUBLE:
+				ptr = writeBytes(dst, ptr, doubleData);
+				break;
+			case SerialType.BOOLEAN:
+				ptr = writeBytes(dst, ptr, booleanData);
+				break;
+			case SerialType.STRING:
+				ptr = writeBytes(dst, ptr, stringData);
+				break;
 		}
 		return ptr;
 	}
@@ -430,30 +438,31 @@ public class SerialArray {
 	 */
 	public int getDataSize() {
 		switch (type) {
-		case SerialType.BYTE:
-			return byteData.length * SerialType.getSize(type);
-		case SerialType.SHORT:
-			return shortData.length * SerialType.getSize(type);
-		case SerialType.CHAR:
-			return charData.length * SerialType.getSize(type);
-		case SerialType.INTEGER:
-			return intData.length * SerialType.getSize(type);
-		case SerialType.LONG:
-			return longData.length * SerialType.getSize(type);
-		case SerialType.FLOAT:
-			return floatData.length * SerialType.getSize(type);
-		case SerialType.DOUBLE:
-			return doubleData.length * SerialType.getSize(type);
-		case SerialType.BOOLEAN:
-			return booleanData.length * SerialType.getSize(type);
-		case SerialType.STRING:
-			int total = 0;
-			for (String string : stringData)
-				total += string.length() + 2;
-			return total;
+			case SerialType.BYTE:
+				return byteData.length * SerialType.getSize(type);
+			case SerialType.SHORT:
+				return shortData.length * SerialType.getSize(type);
+			case SerialType.CHAR:
+				return charData.length * SerialType.getSize(type);
+			case SerialType.INTEGER:
+				return intData.length * SerialType.getSize(type);
+			case SerialType.LONG:
+				return longData.length * SerialType.getSize(type);
+			case SerialType.FLOAT:
+				return floatData.length * SerialType.getSize(type);
+			case SerialType.DOUBLE:
+				return doubleData.length * SerialType.getSize(type);
+			case SerialType.BOOLEAN:
+				return booleanData.length * SerialType.getSize(type);
+			case SerialType.STRING:
+				// If the SerialArray contains Strings, we have to manually compute the data size
+				int total = 0;
+				for (String string : stringData)
+					total += string.length() + 2;
+				return total;
 		}
 		assert false;
-		return 0;
+		return -1;
 	}
 
 	/**
@@ -463,6 +472,56 @@ public class SerialArray {
 	 */
 	public int getSize() {
 		return 1 + 2 + name.length + 1 + 4 + getDataSize();
+	}
+
+	/**
+	 * Recovers the name of the SerialArray using the name byte array
+	 * 
+	 * @return The name of the SerialArray
+	 */
+	public String getName() {
+		return ArrayUtils.stringOf(name);
+	}
+
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("SerialArray [name=\"");
+		sb.append(getName() + "\", ");
+		sb.append("type=");
+		sb.append(SerialType.getName(type) + ", ");
+		sb.append("count=" + count + ", ");
+		sb.append("value=");
+		switch (type) {
+			case SerialType.BYTE:
+				sb.append(Arrays.toString(byteData));
+				break;
+			case SerialType.SHORT:
+				sb.append(Arrays.toString(shortData));
+				break;
+			case SerialType.CHAR:
+				sb.append(Arrays.toString(charData));
+				break;
+			case SerialType.INTEGER:
+				sb.append(Arrays.toString(intData));
+				break;
+			case SerialType.LONG:
+				sb.append(Arrays.toString(longData));
+				break;
+			case SerialType.FLOAT:
+				sb.append(Arrays.toString(floatData));
+				break;
+			case SerialType.DOUBLE:
+				sb.append(Arrays.toString(doubleData));
+				break;
+			case SerialType.BOOLEAN:
+				sb.append(Arrays.toString(booleanData));
+				break;
+			case SerialType.STRING:
+				sb.append(Arrays.toString(stringData));
+				break;
+		}
+		sb.append("]");
+		return sb.toString();
 	}
 
 }

@@ -34,6 +34,7 @@ public class SerialType {
 	public static final byte	DOUBLE	= 7;
 	public static final byte	BOOLEAN	= 8;
 	public static final byte	STRING	= 9;
+	public static final byte	GENERIC	= 10;
 	
 	public static final int getSize(byte type) {
 		switch (type) {
@@ -46,6 +47,7 @@ public class SerialType {
 		case DOUBLE:	return 8;
 		case BOOLEAN:	return 1;
 		case STRING:	return 1;
+		case GENERIC:	return 1;
 		}
 		assert false;
 		return 0;
@@ -63,9 +65,10 @@ public class SerialType {
 		case DOUBLE:	return "double";
 		case BOOLEAN:	return "boolean";
 		case STRING:	return "String";
+		case GENERIC:	return "generic";
 		}
 		assert false;
-		return "Unknown";
+		return "unknown";
 	}
 	
 }
