@@ -20,17 +20,21 @@ public class Main {
 		SerialField field = SerialField.String("str", "FooBarBaz");
 		SerialObject object = new SerialObject("Entity");
 		SerialField gField = SerialField.Generic("Test", field);
-
+		byte[] dt = new byte[gField.getSize()];
+		gField.getBytes(dt, 0);
+		try {
+			SerialField read = SerialField.Deserialize(dt, 0);
+			System.out.println(read.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		object.addField(field);
 		object.addArray(array);
 		object.addField(gField);
 
-		System.out.println(object);
-
 		byte[] stream = new byte[object.getSize()];
 		object.getBytes(stream, 0);
-		FileUtils.saveToFile("test.sdb", stream);
-
+		FileUtils.saveToFile("test.sdb", stream, FileUtils.BINARY_MODE);
 	}
 
 }

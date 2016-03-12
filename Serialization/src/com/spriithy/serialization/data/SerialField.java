@@ -2,6 +2,7 @@ package com.spriithy.serialization.data;
 
 import static com.spriithy.serialization.SerialReader.*;
 import static com.spriithy.serialization.SerialWriter.*;
+import static com.spriithy.utils.ArrayUtils.*;
 
 import com.spriithy.serialization.Serializable;
 import com.spriithy.utils.ArrayUtils;
@@ -103,16 +104,34 @@ public class SerialField implements Serializable {
 		return field;
 	}
 
-	public static <T> SerialField Generic(String name, T obj) {
+	public static <T extends Serializable> SerialField Generic(String name, T obj) {
 		if (obj instanceof Serializable) {
 			SerialField field = new SerialField();
 			field.generic = obj;
 			field.setName(name);
-			field.data = new byte[((Serializable) obj).getSize()];
+			field.data = new byte[obj.getSize()];
 			field.type = SerialType.GENERIC;
-			((Serializable) obj).getBytes(field.data, 0);
+			obj.getBytes(field.data, 0);
 			return field;
-		} else throw new IllegalArgumentException("The generic object passed must implement com.spriithy.serialization.Serializable");
+		} else throw new IllegalArgumentException("A generic SerialField must serialize an Object that implements com.spriithy.serialization.Serializable");
+	}
+
+	public static SerialField Deserialize(byte[] data, int ptr) throws Exception {
+		SerialField field = new SerialField();
+		if (data[ptr++] != CONTAINER_TYPE) throw new Exception("Given pointer doesn't represent a SerialField");
+		field.nameLength = readShort(data, ptr);
+		String name = readString(data, ptr);
+		field.setName(name);
+		field.type = readByte(data, ptr + 2 + field.nameLength);
+		field.data = slice(data, ptr + 2 + field.nameLength + 1, data.length - 1);
+		if (field.type == SerialType.GENERIC) {
+			switch (field.data[0]) {
+			case SerialContainerType.FIELD:
+				field.generic = Deserialize(field.data, 0);
+				break;
+			}
+		}
+		return field;
 	}
 
 	public void setName(String name) {
@@ -122,7 +141,6 @@ public class SerialField implements Serializable {
 	}
 
 	public int getBytes(byte[] dst, int ptr) {
-		assert dst.length > ptr + getSize() : "Overflow !";
 		ptr = writeBytes(dst, ptr, CONTAINER_TYPE);
 		ptr = writeBytes(dst, ptr, nameLength);
 		ptr = writeBytes(dst, ptr, name);
@@ -132,7 +150,7 @@ public class SerialField implements Serializable {
 	}
 
 	public int getSize() {
-		assert SerialType.getSize(type) == data.length : "Corrupted data !";
+		assert SerialType.getSize(type) != data.length : "Corrupted data !";
 		return 1 + 2 + name.length + 1 + data.length;
 	}
 
@@ -148,37 +166,36 @@ public class SerialField implements Serializable {
 		sb.append(SerialType.getName(type) + ", ");
 		sb.append("value=");
 		switch (type) {
-			case SerialType.BYTE:
-				sb.append(readByte(data, 0));
-				break;
-			case SerialType.SHORT:
-				sb.append(readShort(data, 0));
-				break;
-			case SerialType.CHAR:
-				sb.append(readChar(data, 0));
-				break;
-			case SerialType.INTEGER:
-				sb.append(readInt(data, 0));
-				break;
-			case SerialType.LONG:
-				sb.append(readLong(data, 0));
-				break;
-			case SerialType.FLOAT:
-				sb.append(readFloat(data, 0));
-				break;
-			case SerialType.DOUBLE:
-				sb.append(readDouble(data, 0));
-				break;
-			case SerialType.BOOLEAN:
-				sb.append(readDouble(data, 0));
-				break;
-			case SerialType.STRING:
-				sb.append("\"");
-				sb.append(readString(data, 0));
-				sb.append("\"");
-				break;
-			case SerialType.GENERIC:
-				sb.append(generic.toString());
+		case SerialType.BYTE:
+			sb.append(readByte(data, 0));
+			break;
+		case SerialType.SHORT:
+			sb.append(readShort(data, 0));
+			break;
+		case SerialType.CHAR:
+			sb.append(readChar(data, 0));
+			break;
+		case SerialType.INTEGER:
+			sb.append(readInt(data, 0));
+			break;
+		case SerialType.LONG:
+			sb.append(readLong(data, 0));
+			break;
+		case SerialType.FLOAT:
+			sb.append(readFloat(data, 0));
+			break;
+		case SerialType.DOUBLE:
+			sb.append(readDouble(data, 0));
+			break;
+		case SerialType.BOOLEAN:
+			sb.append(readDouble(data, 0));
+			break;
+		case SerialType.STRING:
+			sb.append("\"" + readString(data, 0) + "\"");
+			break;
+		case SerialType.GENERIC:
+			sb.append(generic.toString());
+			break;
 		}
 		sb.append("]");
 		return sb.toString();

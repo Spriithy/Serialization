@@ -74,7 +74,6 @@ public class SerialObject implements Serializable {
 	}
 
 	public int getBytes(byte[] dst, int ptr) {
-		assert dst.length > ptr + getSize() : "Overflow !";
 		ptr = writeBytes(dst, ptr, CONTAINER_TYPE);
 		ptr = writeBytes(dst, ptr, nameLength);
 		ptr = writeBytes(dst, ptr, name);

@@ -390,8 +390,6 @@ public class SerialArray implements Serializable {
 	 * @return the new position of the pointer
 	 */
 	public int getBytes(byte[] dst, int ptr) {
-		assert dst.length > ptr + getSize() : "Array Overflow when writing array's data";
-
 		ptr = writeBytes(dst, ptr, CONTAINER_TYPE);
 		ptr = writeBytes(dst, ptr, nameLength);
 		ptr = writeBytes(dst, ptr, name);

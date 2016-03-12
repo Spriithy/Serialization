@@ -912,7 +912,7 @@ public class ArrayUtils {
 		}
 		return sb.toString();
 	}
-	
+
 	/**
 	 * Builds up a String of the given source array. String given is formatted
 	 * as follows :
