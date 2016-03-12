@@ -310,6 +310,26 @@ public class ArrayUtils {
 	}
 
 	/**
+	 * Copies the source array into the destination array from a given point for
+	 * a certain amount of elements.
+	 * 
+	 * @param dst
+	 *            The destination array
+	 * @param at
+	 *            The starting point to copy to in the destination array
+	 * @param src
+	 *            The source array (the one to copies value from)
+	 * @param from
+	 *            The starting point to copy from in the source array
+	 * @param count
+	 *            The count of elements to copy
+	 */
+	public static <T> void copy(T[] dst, int at, T[] src, int from, int count) {
+		for (int i = from; i < from + count; i++)
+			dst[i - from + at] = src[i];
+	}
+
+	/**
 	 * Determines the amount of elements in the source array that are equal to
 	 * the given value
 	 * 
@@ -425,6 +445,23 @@ public class ArrayUtils {
 		int count = 0;
 		for (short s : src)
 			if (s == val) count++;
+		return count;
+	}
+
+	/**
+	 * Determines the amount of elements in the source array that are equal to
+	 * the given value
+	 * 
+	 * @param src
+	 *            The source array to look into
+	 * @param val
+	 *            The value to count
+	 * @return The count of val in src
+	 */
+	public static <T> int count(T[] src, T val) {
+		int count = 0;
+		for (T t : src)
+			if (t == val || t.equals(val)) count++;
 		return count;
 	}
 
@@ -871,6 +908,30 @@ public class ArrayUtils {
 			sb.append("[");
 			for (int i = 0; i < src.length; i++)
 				sb.append(src[i] + ((i + 1 != src.length) ? ", " : ""));
+			sb.append("]");
+		}
+		return sb.toString();
+	}
+	
+	/**
+	 * Builds up a String of the given source array. String given is formatted
+	 * as follows :
+	 * 
+	 * <pre>
+	 * [e1, e2, ..., en]
+	 * </pre>
+	 * 
+	 * @param src
+	 *            The source array to get string from
+	 * @return The String associated to the array
+	 */
+	public static <T> String getString(T[] src) {
+		StringBuilder sb = new StringBuilder();
+		if (src == null) sb.append("[]");
+		else {
+			sb.append("[");
+			for (int i = 0; i < src.length; i++)
+				sb.append(src[i].toString() + ((i + 1 != src.length) ? ", " : ""));
 			sb.append("]");
 		}
 		return sb.toString();
