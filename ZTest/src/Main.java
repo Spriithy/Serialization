@@ -18,14 +18,17 @@ public class Main {
 			data[i] = random.nextInt();
 		SerialArray array = SerialArray.Integer("RandomNumbers", data);
 		SerialField field = SerialField.String("str", "FooBarBaz");
+		SerialField gField = SerialField.Generic("Test", field);
 
 		SerialObject object = new SerialObject("Entity");
-		object.addArray(array);
 		object.addField(field);
-		
+		object.addArray(array);
+		object.addField(gField);
+
 		byte[] stream = new byte[object.getSize()];
 		object.getBytes(stream, 0);
 		FileUtils.saveToFile("test.sdb", stream);
+
 	}
 
 }
