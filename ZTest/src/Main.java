@@ -18,12 +18,14 @@ public class Main {
 			data[i] = random.nextInt();
 		SerialArray array = SerialArray.Integer("RandomNumbers", data);
 		SerialField field = SerialField.String("str", "FooBarBaz");
+		SerialObject object = new SerialObject("Entity");
 		SerialField gField = SerialField.Generic("Test", field);
 
-		SerialObject object = new SerialObject("Entity");
 		object.addField(field);
 		object.addArray(array);
 		object.addField(gField);
+
+		System.out.println(object);
 
 		byte[] stream = new byte[object.getSize()];
 		object.getBytes(stream, 0);

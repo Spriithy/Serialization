@@ -98,4 +98,8 @@ public class SerialObject implements Serializable {
 		return size + nameLength;
 	}
 
+	public String toString() {
+		return "SerialObject [name=\"" + getName() + "\", fields=" + fields + ", arrays=" + arrays + "]";
+	}
+
 }
