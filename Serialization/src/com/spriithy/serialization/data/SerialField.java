@@ -4,6 +4,8 @@ import static com.spriithy.serialization.SerialReader.*;
 import static com.spriithy.serialization.SerialWriter.*;
 import static com.spriithy.utils.ArrayUtils.*;
 
+import javax.activation.UnsupportedDataTypeException;
+
 import com.spriithy.serialization.Serializable;
 import com.spriithy.utils.ArrayUtils;
 
@@ -129,6 +131,8 @@ public class SerialField implements Serializable {
 			case SerialContainerType.FIELD:
 				field.generic = Deserialize(field.data, 0);
 				break;
+			default:
+				throw new UnsupportedDataTypeException("Cannot deserialize generic SerialField if field type is not SerialField");
 			}
 		}
 		return field;

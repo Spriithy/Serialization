@@ -19,18 +19,17 @@ public class Main {
 		SerialArray array = SerialArray.Integer("RandomNumbers", data);
 		SerialField field = SerialField.String("str", "FooBarBaz");
 		SerialObject object = new SerialObject("Entity");
-		SerialField gField = SerialField.Generic("Test", field);
+		object.addField(field);
+		object.addArray(array);
+		SerialField gField = SerialField.Generic("GenericBoy", field);
 		byte[] dt = new byte[gField.getSize()];
 		gField.getBytes(dt, 0);
 		try {
 			SerialField read = SerialField.Deserialize(dt, 0);
-			System.out.println(read.toString());
+			System.out.println(read);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		object.addField(field);
-		object.addArray(array);
-		object.addField(gField);
 
 		byte[] stream = new byte[object.getSize()];
 		object.getBytes(stream, 0);
