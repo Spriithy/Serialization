@@ -4,6 +4,9 @@ import static com.spriithy.serialization.SerialReader.*;
 import static com.spriithy.serialization.SerialWriter.*;
 import static com.spriithy.utils.ArrayUtils.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.activation.UnsupportedDataTypeException;
 
 import com.spriithy.serialization.Serializable;
@@ -14,14 +17,16 @@ import com.spriithy.utils.ArrayUtils;
  */
 public class SerialField implements Serializable {
 
-	public static final byte	CONTAINER_TYPE	= SerialContainerType.FIELD;
+	public static final byte		CONTAINER_TYPE	= SerialContainerType.FIELD;
 
-	public short				nameLength;
-	public byte[]				name;
-	public byte					type;
-	public byte[]				data;
+	public static List<SerialField>	fields			= new ArrayList<>();
 
-	private Object				generic;
+	public short					nameLength;
+	public byte[]					name;
+	public byte						type;
+	public byte[]					data;
+
+	private Object					generic;
 
 	private SerialField() {}
 
@@ -118,9 +123,9 @@ public class SerialField implements Serializable {
 		} else throw new IllegalArgumentException("A generic SerialField must serialize an Object that implements com.spriithy.serialization.Serializable");
 	}
 
-	public static SerialField Deserialize(byte[] data, int ptr) throws Exception {
+	public static SerialField Deserialize(byte[] data, int ptr) throws UnsupportedDataTypeException {
 		SerialField field = new SerialField();
-		if (data[ptr++] != CONTAINER_TYPE) throw new Exception("Given pointer doesn't represent a SerialField");
+		if (data[ptr++] != CONTAINER_TYPE) throw new UnsupportedDataTypeException("Given pointer doesn't represent a SerialField");
 		field.nameLength = readShort(data, ptr);
 		String name = readString(data, ptr);
 		field.setName(name);

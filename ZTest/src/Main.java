@@ -24,6 +24,7 @@ public class Main {
 		SerialField gField = SerialField.Generic("GenericBoy", field);
 		byte[] dt = new byte[gField.getSize()];
 		gField.getBytes(dt, 0);
+		
 		try {
 			SerialField read = SerialField.Deserialize(dt, 0);
 			System.out.println(read);

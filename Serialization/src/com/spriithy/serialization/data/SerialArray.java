@@ -93,19 +93,24 @@ public class SerialArray implements Serializable {
 	 */
 	private String[]			stringData;
 
+	private Object[]			genericData;
+
 	/**
-	 * This constructor is made private so one cannot instanciate a SerialArray out of given presets.
+	 * This constructor is made private so one cannot instanciate a SerialArray
+	 * out of given presets.
 	 */
 	private SerialArray() {}
 
 	/**
-	 * Creates a new instance of SerialArray and initializes it to be a byte array
+	 * Creates a new instance of SerialArray and initializes it to be a byte
+	 * array
 	 * 
 	 * @param name
 	 *            The name of the SerialArray
 	 * @param data
 	 *            The byte array to store
-	 * @return The new instance of {@link com.spriithy.serialization.data.SerialArray}
+	 * @return The new instance of
+	 *         {@link com.spriithy.serialization.data.SerialArray}
 	 */
 	public static SerialArray Byte(String name, byte[] data) {
 		SerialArray array = new SerialArray();
@@ -129,13 +134,15 @@ public class SerialArray implements Serializable {
 	}
 
 	/**
-	 * Creates a new instance of SerialArray and initializes it to be a short array
+	 * Creates a new instance of SerialArray and initializes it to be a short
+	 * array
 	 * 
 	 * @param name
 	 *            The name of the SerialArray
 	 * @param data
 	 *            The short array to store
-	 * @return The new instance of {@link com.spriithy.serialization.data.SerialArray}
+	 * @return The new instance of
+	 *         {@link com.spriithy.serialization.data.SerialArray}
 	 */
 	public static SerialArray Short(String name, short[] data) {
 		SerialArray array = new SerialArray();
@@ -159,13 +166,15 @@ public class SerialArray implements Serializable {
 	}
 
 	/**
-	 * Creates a new instance of SerialArray and initializes it to be a char array
+	 * Creates a new instance of SerialArray and initializes it to be a char
+	 * array
 	 * 
 	 * @param name
 	 *            The name of the SerialArray
 	 * @param data
 	 *            The char array to store
-	 * @return The new instance of {@link com.spriithy.serialization.data.SerialArray}
+	 * @return The new instance of
+	 *         {@link com.spriithy.serialization.data.SerialArray}
 	 */
 	public static SerialArray Char(String name, char[] data) {
 		SerialArray array = new SerialArray();
@@ -189,13 +198,15 @@ public class SerialArray implements Serializable {
 	}
 
 	/**
-	 * Creates a new instance of SerialArray and initializes it to be a int array
+	 * Creates a new instance of SerialArray and initializes it to be a int
+	 * array
 	 * 
 	 * @param name
 	 *            The name of the SerialArray
 	 * @param data
 	 *            The int array to store
-	 * @return The new instance of {@link com.spriithy.serialization.data.SerialArray}
+	 * @return The new instance of
+	 *         {@link com.spriithy.serialization.data.SerialArray}
 	 */
 	public static SerialArray Integer(String name, int[] data) {
 		SerialArray array = new SerialArray();
@@ -219,13 +230,15 @@ public class SerialArray implements Serializable {
 	}
 
 	/**
-	 * Creates a new instance of SerialArray and initializes it to be a long array
+	 * Creates a new instance of SerialArray and initializes it to be a long
+	 * array
 	 * 
 	 * @param name
 	 *            The name of the SerialArray
 	 * @param data
 	 *            The long array to store
-	 * @return The new instance of {@link com.spriithy.serialization.data.SerialArray}
+	 * @return The new instance of
+	 *         {@link com.spriithy.serialization.data.SerialArray}
 	 */
 	public static SerialArray Long(String name, long[] data) {
 		SerialArray array = new SerialArray();
@@ -249,13 +262,15 @@ public class SerialArray implements Serializable {
 	}
 
 	/**
-	 * Creates a new instance of SerialArray and initializes it to be a float array
+	 * Creates a new instance of SerialArray and initializes it to be a float
+	 * array
 	 * 
 	 * @param name
 	 *            The name of the SerialArray
 	 * @param data
 	 *            The float array to store
-	 * @return The new instance of {@link com.spriithy.serialization.data.SerialArray}
+	 * @return The new instance of
+	 *         {@link com.spriithy.serialization.data.SerialArray}
 	 */
 	public static SerialArray Float(String name, float[] data) {
 		SerialArray array = new SerialArray();
@@ -279,13 +294,15 @@ public class SerialArray implements Serializable {
 	}
 
 	/**
-	 * Creates a new instance of SerialArray and initializes it to be a double array
+	 * Creates a new instance of SerialArray and initializes it to be a double
+	 * array
 	 * 
 	 * @param name
 	 *            The name of the SerialArray
 	 * @param data
 	 *            The double array to store
-	 * @return The new instance of {@link com.spriithy.serialization.data.SerialArray}
+	 * @return The new instance of
+	 *         {@link com.spriithy.serialization.data.SerialArray}
 	 */
 	public static SerialArray Double(String name, double[] data) {
 		SerialArray array = new SerialArray();
@@ -309,13 +326,15 @@ public class SerialArray implements Serializable {
 	}
 
 	/**
-	 * Creates a new instance of SerialArray and initializes it to be a boolean array
+	 * Creates a new instance of SerialArray and initializes it to be a boolean
+	 * array
 	 * 
 	 * @param name
 	 *            The name of the SerialArray
 	 * @param data
 	 *            The boolean array to store
-	 * @return The new instance of {@link com.spriithy.serialization.data.SerialArray}
+	 * @return The new instance of
+	 *         {@link com.spriithy.serialization.data.SerialArray}
 	 */
 	public static SerialArray Boolean(String name, boolean[] data) {
 		SerialArray array = new SerialArray();
@@ -339,13 +358,15 @@ public class SerialArray implements Serializable {
 	}
 
 	/**
-	 * Creates a new instance of SerialArray and initializes it to be a String array
+	 * Creates a new instance of SerialArray and initializes it to be a String
+	 * array
 	 * 
 	 * @param name
 	 *            The name of the SerialArray
 	 * @param data
 	 *            The String array to store
-	 * @return The new instance of {@link com.spriithy.serialization.data.SerialArray}
+	 * @return The new instance of
+	 *         {@link com.spriithy.serialization.data.SerialArray}
 	 */
 	public static SerialArray String(String name, String[] data) {
 		SerialArray array = new SerialArray();
@@ -369,6 +390,40 @@ public class SerialArray implements Serializable {
 	}
 
 	/**
+	 * Creates a new instance of SerialArray and initializes it to be a Generic
+	 * object
+	 * array
+	 * 
+	 * @param name
+	 *            The name of the SerialArray
+	 * @param data
+	 *            The Generic object array to store
+	 * @return The new instance of
+	 *         {@link com.spriithy.serialization.data.SerialArray}
+	 */
+	public static <T extends Serializable> SerialArray Generic(String name, T[] data) {
+		SerialArray array = new SerialArray();
+		array.setName(name);
+		array.count = data.length;
+		array.genericData = data;
+		array.type = SerialType.GENERIC;
+		return array;
+	}
+
+	public <T extends Serializable> void set(int pos, T val) {
+		assert pos >= 0 && pos <= stringData.length : "Out of bounds";
+		assert type == SerialType.GENERIC : "Cannot put " + SerialType.getName(type) + " when a Generic type is expected";
+		genericData[pos] = val;
+	}
+
+	@SuppressWarnings("unchecked")
+	public <T extends Serializable> T genericAt(int pos) {
+		assert pos >= 0 && pos <= stringData.length : "Out of bounds";
+		assert type == SerialType.GENERIC : "Cannot get " + SerialType.getName(type) + " from generic array";
+		return (T) genericData[pos];
+	}
+
+	/**
 	 * Sets the array name and updates related data fields
 	 * 
 	 * @param name
@@ -381,7 +436,8 @@ public class SerialArray implements Serializable {
 	}
 
 	/**
-	 * Writes the array data bytes into the given array starting at the given position
+	 * Writes the array data bytes into the given array starting at the given
+	 * position
 	 * 
 	 * @param dst
 	 *            The destination array
@@ -398,33 +454,33 @@ public class SerialArray implements Serializable {
 
 		// Each type has its own array to store it since we can't template Java primitive types
 		switch (type) {
-			case SerialType.BYTE:
-				ptr = writeBytes(dst, ptr, byteData);
-				break;
-			case SerialType.SHORT:
-				ptr = writeBytes(dst, ptr, shortData);
-				break;
-			case SerialType.CHAR:
-				ptr = writeBytes(dst, ptr, charData);
-				break;
-			case SerialType.INTEGER:
-				ptr = writeBytes(dst, ptr, intData);
-				break;
-			case SerialType.LONG:
-				ptr = writeBytes(dst, ptr, longData);
-				break;
-			case SerialType.FLOAT:
-				ptr = writeBytes(dst, ptr, floatData);
-				break;
-			case SerialType.DOUBLE:
-				ptr = writeBytes(dst, ptr, doubleData);
-				break;
-			case SerialType.BOOLEAN:
-				ptr = writeBytes(dst, ptr, booleanData);
-				break;
-			case SerialType.STRING:
-				ptr = writeBytes(dst, ptr, stringData);
-				break;
+		case SerialType.BYTE:
+			ptr = writeBytes(dst, ptr, byteData);
+			break;
+		case SerialType.SHORT:
+			ptr = writeBytes(dst, ptr, shortData);
+			break;
+		case SerialType.CHAR:
+			ptr = writeBytes(dst, ptr, charData);
+			break;
+		case SerialType.INTEGER:
+			ptr = writeBytes(dst, ptr, intData);
+			break;
+		case SerialType.LONG:
+			ptr = writeBytes(dst, ptr, longData);
+			break;
+		case SerialType.FLOAT:
+			ptr = writeBytes(dst, ptr, floatData);
+			break;
+		case SerialType.DOUBLE:
+			ptr = writeBytes(dst, ptr, doubleData);
+			break;
+		case SerialType.BOOLEAN:
+			ptr = writeBytes(dst, ptr, booleanData);
+			break;
+		case SerialType.STRING:
+			ptr = writeBytes(dst, ptr, stringData);
+			break;
 		}
 		return ptr;
 	}
@@ -436,28 +492,28 @@ public class SerialArray implements Serializable {
 	 */
 	public int getDataSize() {
 		switch (type) {
-			case SerialType.BYTE:
-				return byteData.length * SerialType.getSize(type);
-			case SerialType.SHORT:
-				return shortData.length * SerialType.getSize(type);
-			case SerialType.CHAR:
-				return charData.length * SerialType.getSize(type);
-			case SerialType.INTEGER:
-				return intData.length * SerialType.getSize(type);
-			case SerialType.LONG:
-				return longData.length * SerialType.getSize(type);
-			case SerialType.FLOAT:
-				return floatData.length * SerialType.getSize(type);
-			case SerialType.DOUBLE:
-				return doubleData.length * SerialType.getSize(type);
-			case SerialType.BOOLEAN:
-				return booleanData.length * SerialType.getSize(type);
-			case SerialType.STRING:
-				// If the SerialArray contains Strings, we have to manually compute the data size
-				int total = 0;
-				for (String string : stringData)
-					total += string.length() + 2;
-				return total;
+		case SerialType.BYTE:
+			return byteData.length * SerialType.getSize(type);
+		case SerialType.SHORT:
+			return shortData.length * SerialType.getSize(type);
+		case SerialType.CHAR:
+			return charData.length * SerialType.getSize(type);
+		case SerialType.INTEGER:
+			return intData.length * SerialType.getSize(type);
+		case SerialType.LONG:
+			return longData.length * SerialType.getSize(type);
+		case SerialType.FLOAT:
+			return floatData.length * SerialType.getSize(type);
+		case SerialType.DOUBLE:
+			return doubleData.length * SerialType.getSize(type);
+		case SerialType.BOOLEAN:
+			return booleanData.length * SerialType.getSize(type);
+		case SerialType.STRING:
+			// If the SerialArray contains Strings, we have to manually compute the data size
+			int total = 0;
+			for (String string : stringData)
+				total += string.length() + 2;
+			return total;
 		}
 		assert false;
 		return -1;
@@ -490,33 +546,33 @@ public class SerialArray implements Serializable {
 		sb.append("count=" + count + ", ");
 		sb.append("value=");
 		switch (type) {
-			case SerialType.BYTE:
-				sb.append(Arrays.toString(byteData));
-				break;
-			case SerialType.SHORT:
-				sb.append(Arrays.toString(shortData));
-				break;
-			case SerialType.CHAR:
-				sb.append(Arrays.toString(charData));
-				break;
-			case SerialType.INTEGER:
-				sb.append(Arrays.toString(intData));
-				break;
-			case SerialType.LONG:
-				sb.append(Arrays.toString(longData));
-				break;
-			case SerialType.FLOAT:
-				sb.append(Arrays.toString(floatData));
-				break;
-			case SerialType.DOUBLE:
-				sb.append(Arrays.toString(doubleData));
-				break;
-			case SerialType.BOOLEAN:
-				sb.append(Arrays.toString(booleanData));
-				break;
-			case SerialType.STRING:
-				sb.append(Arrays.toString(stringData));
-				break;
+		case SerialType.BYTE:
+			sb.append(Arrays.toString(byteData));
+			break;
+		case SerialType.SHORT:
+			sb.append(Arrays.toString(shortData));
+			break;
+		case SerialType.CHAR:
+			sb.append(Arrays.toString(charData));
+			break;
+		case SerialType.INTEGER:
+			sb.append(Arrays.toString(intData));
+			break;
+		case SerialType.LONG:
+			sb.append(Arrays.toString(longData));
+			break;
+		case SerialType.FLOAT:
+			sb.append(Arrays.toString(floatData));
+			break;
+		case SerialType.DOUBLE:
+			sb.append(Arrays.toString(doubleData));
+			break;
+		case SerialType.BOOLEAN:
+			sb.append(Arrays.toString(booleanData));
+			break;
+		case SerialType.STRING:
+			sb.append(Arrays.toString(stringData));
+			break;
 		}
 		sb.append("]");
 		return sb.toString();
