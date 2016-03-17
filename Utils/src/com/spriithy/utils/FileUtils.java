@@ -18,7 +18,7 @@ public final class FileUtils {
 			case VALUE_MODE:
 				PrintWriter writer = new PrintWriter(path, "UTF-8");
 				for (byte b : data)
-					writer.print(b);
+					writer.print(b + " ");
 				writer.close();
 				break;
 			case BINARY_MODE:

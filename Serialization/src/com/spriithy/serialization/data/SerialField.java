@@ -4,9 +4,6 @@ import static com.spriithy.serialization.SerialReader.*;
 import static com.spriithy.serialization.SerialWriter.*;
 import static com.spriithy.utils.ArrayUtils.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.activation.UnsupportedDataTypeException;
 
 import com.spriithy.serialization.Serializable;
@@ -18,8 +15,6 @@ import com.spriithy.utils.ArrayUtils;
 public class SerialField implements Serializable {
 
 	public static final byte		CONTAINER_TYPE	= SerialContainerType.FIELD;
-
-	public static List<SerialField>	fields			= new ArrayList<>();
 
 	public short					nameLength;
 	public byte[]					name;
@@ -125,7 +120,7 @@ public class SerialField implements Serializable {
 
 	public static SerialField Deserialize(byte[] data, int ptr) throws UnsupportedDataTypeException {
 		SerialField field = new SerialField();
-		if (data[ptr++] != CONTAINER_TYPE) throw new UnsupportedDataTypeException("Given pointer doesn't represent a SerialField");
+		if (data[ptr++] != CONTAINER_TYPE) throw new UnsupportedDataTypeException("Given data doesn't represent a SerialField");
 		field.nameLength = readShort(data, ptr);
 		String name = readString(data, ptr);
 		field.setName(name);
@@ -137,7 +132,7 @@ public class SerialField implements Serializable {
 				field.generic = Deserialize(field.data, 0);
 				break;
 			default:
-				throw new UnsupportedDataTypeException("Cannot deserialize generic SerialField if field type is not SerialField");
+				throw new UnsupportedDataTypeException("Cannot deserialize generic SerialField if container type is not SerialField");
 			}
 		}
 		return field;

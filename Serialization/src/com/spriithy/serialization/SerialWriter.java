@@ -5,8 +5,8 @@ package com.spriithy.serialization;
  */
 public class SerialWriter {
 
-	public static byte[]	HEADER	= "SDB".getBytes();
-	public static short		VERSION	= 0x0101;			// 1.1
+	public static final byte[]	HEADER	= "SDB".getBytes();
+	public static final short	VERSION	= 0x0101;			// 1.1
 
 	private SerialWriter() {}
 
